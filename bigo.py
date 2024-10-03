@@ -2,7 +2,7 @@
 Student information for this assignment:
 
 Replace <FULL NAME> with your name.
-On my/our honor, <FULL NAME> and <FULL NAME>, this
+On my/our honor, Samuel Suh and Noah Yu, this
 programming assignment is my own work and I have not provided this code to
 any other student.
 
@@ -13,7 +13,7 @@ code to someone else), the case shall be submitted to the Office of the Dean of
 Students. Academic penalties up to and including an F in the course are likely.
 
 UT EID 1: sjs5658
-UT EID 2:
+UT EID 2: ny3259
 """
 
 
@@ -27,7 +27,31 @@ def length_of_longest_substring_n3(s):
     post: Returns an integer >= 0 representing the length of the longest substring
           in s that contains no repeating characters.
     """
-    pass
+    maxlen = 0
+    len_s = len(s)
+
+    for start in range(len_s):
+        freqlst = [0] * 256 #create list of 256 zeros
+
+        for current in range(start, len_s):
+            char = ord(s[current])
+            freqlst[char] += 1
+
+            repeated = False
+            for i in freqlst:
+                if i >= 2:
+                 repeated = True
+                 break
+        if repeated is True:
+            break
+
+        if maxlen < (current+1-start): #determine the max length if test passes
+            maxlen = current+1-start
+
+    return maxlen
+
+# there's still 35 failures lol
+
 
 
 # TODO: implement this function. You may delete this comment when you are done.
@@ -42,7 +66,21 @@ def length_of_longest_substring_n2(s):
     post: Returns an integer >= 0 representing the length of the longest substring
           in s that contains no repeating characters.
     """
-    pass
+    maxlen = 0
+    len_s = len(s)
+    for start in range(len_s):
+        freqlst = [0] * 256 #create list of 256 zeros
+        for current in range(start, len_s):
+            char = ord(s[current])
+
+            if freqlst[char] >= 1: #check to see if it's in the list ~ test
+                break
+
+            freqlst[char] += 1
+
+            if maxlen < (current+1-start): #determine the max length if test passes
+                maxlen = current+1-start
+    return maxlen
 
 
 # TODO: implement this function. You may delete this comment when you are done.
