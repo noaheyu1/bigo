@@ -58,12 +58,9 @@ def length_of_longest_substring_n2(s):
         freqlst = [0] * 256  # create list of 256 zeros
         for current in range(start, len_s):
             char = ord(s[current])
-
             if freqlst[char] >= 1:  # check to see if it's in the list ~ test
                 break
-
             freqlst[char] += 1
-
             if maxlen < (
                 current + 1 - start
             ):  # determine the max length if test passes
@@ -71,7 +68,6 @@ def length_of_longest_substring_n2(s):
     return maxlen
 
 
-# TODO: implement this function. You may delete this comment when you are done.
 def length_of_longest_substring_n(s):
     """
     Finds the length of the longest substring without repeating characters
