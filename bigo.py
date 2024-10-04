@@ -26,7 +26,18 @@ def length_of_longest_substring_n3(s):
     post: Returns an integer >= 0 representing the length of the longest substring
           in s that contains no repeating characters.
     """
-    pass
+    maxlen = 0
+    for start in range(len(s)):
+        for current in range(start + 1, len(s) + 1):
+            poss_str = s[start:current]  # generate a substring for any possibility
+            repeat = False
+            for p in range(len(poss_str) - 1):
+                if poss_str[p] in poss_str[p + 1 :]:
+                    repeat = True
+                    break
+            if not repeat and len(poss_str) > maxlen:
+                maxlen = len(poss_str)
+    return maxlen
 
 
 # TODO: implement this function. You may delete this comment when you are done.
@@ -41,7 +52,23 @@ def length_of_longest_substring_n2(s):
     post: Returns an integer >= 0 representing the length of the longest substring
           in s that contains no repeating characters.
     """
-    pass
+    maxlen = 0
+    len_s = len(s)
+    for start in range(len_s):
+        freqlst = [0] * 256  # create list of 256 zeros
+        for current in range(start, len_s):
+            char = ord(s[current])
+
+            if freqlst[char] >= 1:  # check to see if it's in the list ~ test
+                break
+
+            freqlst[char] += 1
+
+            if maxlen < (
+                current + 1 - start
+            ):  # determine the max length if test passes
+                maxlen = current + 1 - start
+    return maxlen
 
 
 # TODO: implement this function. You may delete this comment when you are done.
