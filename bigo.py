@@ -55,16 +55,17 @@ def length_of_longest_substring_n2(s):
     len_s = len(s)
     for start in range(len_s):
         freqlst = [0] * 256  # create list of 256 zeros
+        repeat = False
         for current in range(start, len_s):
             char = ord(s[current])
 
             if freqlst[char] >= 1:  # check to see if it's in the list ~ test
-                break
+                repeat = True
 
             freqlst[char] += 1
 
-            if maxlen < (
-                current + 1 - start
+            if (
+                maxlen < (current + 1 - start) and not repeat
             ):  # determine the max length if test passes
                 maxlen = current + 1 - start
     return maxlen
@@ -83,21 +84,21 @@ def length_of_longest_substring_n(s):
     post: Returns an integer >= 0 representing the length of the longest substring
           in s that contains no repeating characters.
     """
+
     maxlen = 0
     len_s = len(s)
-    left = 0
-    freqlst = [0] * 256  # create list of 256 zeros
-    for right in range(len_s):
-        char = ord(s[right])
-        if freqlst[char] >= 1:  # check to see if it's in the list ~ test
-            if maxlen < right - left:
-                maxlen = right - left
-            while s[left] != s[right]:  # catch up left index to move past right index
-                freqlst[ord(s[left])] -= 1
-                left += 1
-            left += 1
-        else:
+    for start in range(len_s):
+        freqlst = [0] * 256  # create list of 256 zeros
+        for current in range(start, len_s):
+            char = ord(s[current])
+
+            if freqlst[char] >= 1:  # check to see if it's in the list ~ test
+                break
+
             freqlst[char] += 1
-    if maxlen < len_s - left:
-        maxlen = len_s - left
+
+            if maxlen < (
+                current + 1 - start
+            ):  # determine the max length if test passes
+                maxlen = current + 1 - start
     return maxlen
